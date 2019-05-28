@@ -4,43 +4,42 @@ import "./styles.css"
 
 export default class Main extends Component{
     state = {
-        products:[],
+        objects:[],
     }
-    Delete(){
-        this.loadProducts();
+    Delete(object){
+        const{ objects } = this.state
+            console.log(object)
+            var filtered = objects.filter(
+                el => el._id != object._id)
+            this.setState({objects: filtered});
     }
     componentDidMount(){
-        this.loadProducts();
+        this.loadObjects();
     }
     componentDidUpdate(prevProps,prevState) {
 
       } 
     //É importante que os métodos react sejam feitos com arrowFunction para poder vizualizar o escopo this (LEXICO)
-    loadProducts = async ()=>{
+    loadObjects = async ()=>{
         const response = await api.get(`/Objects`);
 
-        this.setState({products: response.data.docs})
+        this.setState({objects: response.data.docs})
     };
 
     render(){
-        const{ products} = this.state
+        const{ objects } = this.state
         return (
-        <div className="product-list">
-        {products.map(product=>(
-            <article key={product._id}>
-            <strong>{product.title}</strong>
-            <p>{product.description}</p>
-            <a onClick={()=>{
-                console.log(product)
-                var filtered = products.filter(
-                    el => el._id != product._id)
-                this.setState({products: filtered});
-            }       
-        }>Apagar</a>
+        <div className="object-list">
+        {objects.map(object=>(
+            <article key={object._id}>
+            <strong>{object.title}</strong>
+            <p>{object.description}</p>
+            <p>{object.trackcode}</p>
+            <a onClick={()=>this.Delete(object)}>Apagar</a>
             </article>
         ))}
         <div className="actions">
-        <div>{this.state.products.length}</div>
+        <div>{this.state.objects.length}</div>
         <button>Anterior</button>
         <button>Próximo</button>
         </div>
