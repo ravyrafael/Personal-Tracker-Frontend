@@ -29,20 +29,28 @@ export default class Main extends Component {
         }
 
         let response = await api.get(`/Objects?page=${page}`);
-        if (page > response.data.pages){
+        if (page > response.data.pages) {
             page--;
             response = await api.get(`/Objects?page=${page}`);
         }
 
         this.setState({ objects: response.data.docs, active: page })
         let items = [];
-        for (let number = 1; number <= response.data.pages; number++) {
+        let limitItems = 10;
+        let minPageShow = page > limitItems / 2 ? page - limitItems / 2 : 1
+        minPageShow = Math.min(minPageShow, response.data.pages - limitItems)
+        let maxPageShow = Math.min(minPageShow + limitItems, response.data.pages);
+        items.push(<Pagination.First disabled={page === 1} onClick={() => this.loadObjects(1)} />);
+        items.push(<Pagination.Prev disabled={page === 1} onClick={() => this.loadObjects(page - 1)} />);
+        for (let number = minPageShow; number <= maxPageShow; number++) {
             items.push(
                 <Pagination.Item key={number} active={number === page} onClick={() => this.loadObjects(number)}>
                     {number}
                 </Pagination.Item>,
             );
         }
+        items.push(<Pagination.Next disabled={page === response.data.pages} onClick={() => this.loadObjects(page + 1)} />);
+        items.push(<Pagination.Last disabled={page === response.data.pages} onClick={() => this.loadObjects(response.data.pages)} />);
         this.setState({ items: items })
 
     };
@@ -54,7 +62,7 @@ export default class Main extends Component {
                 {objects.map(object => (
                     <Object key={object._id} object={object} delete={() => this.Delete(object)}></Object>
                 ))}
-                <div className="actions">
+                <div className="actions justify-content-center">
                     <div>
                         <Pagination size="sm">{this.state.items}</Pagination>
                     </div>
