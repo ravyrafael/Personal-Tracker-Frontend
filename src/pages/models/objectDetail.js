@@ -9,16 +9,14 @@ export default class Main extends Component {
         this.state = props
     }
 
-    Delete(object){
-
-    }
+    Delete = () => this.props.delete();
     render() {
         return (
-            <article key={this.state.object._id}>
-                <strong>{this.state.object.title}</strong>
-                <p>{this.state.object.description}</p>
-                <p>{this.state.object.trackcode}</p>
-                <Button onClick={() => this.Delete(this.state.object)}>Apagar</Button>
+            <article key={this.props.object._id}>
+                <strong>{this.props.object.title}</strong>
+                <p>{this.props.object.description}</p>
+                <p>{this.props.object.trackcode}</p>
+                <Button onClick={this.Delete}>Apagar</Button>
             </article>
         )
     }
