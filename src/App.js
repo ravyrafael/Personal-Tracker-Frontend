@@ -5,8 +5,12 @@ import Main from './pages/main';
 
 const App= () =>( 
     <div className="App">
-    <Header />
-     <Main/>
+      <div id="header" className="header">
+     <Header />
+     </div>
+      <div id="content" className="content">
+       <Main/>
+       </div>
     </div>
   );
 

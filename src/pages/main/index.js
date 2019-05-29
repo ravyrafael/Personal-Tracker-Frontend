@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import api from "../../services/api";
 import "./styles.css"
+import Object from "../models/objectDetail"
 
 export default class Main extends Component{
     state = {
@@ -10,12 +11,13 @@ export default class Main extends Component{
         const{ objects } = this.state
             console.log(object)
             var filtered = objects.filter(
-                el => el._id != object._id)
+                el => el._id !== object._id)
             this.setState({objects: filtered});
     }
     componentDidMount(){
         this.loadObjects();
     }
+    
     componentDidUpdate(prevProps,prevState) {
 
       } 
@@ -31,15 +33,9 @@ export default class Main extends Component{
         return (
         <div className="object-list">
         {objects.map(object=>(
-            <article key={object._id}>
-            <strong>{object.title}</strong>
-            <p>{object.description}</p>
-            <p>{object.trackcode}</p>
-            <a onClick={()=>this.Delete(object)}>Apagar</a>
-            </article>
+            <Object object={object} ></Object>
         ))}
         <div className="actions">
-        <div>{this.state.objects.length}</div>
         <button>Anterior</button>
         <button>Próximo</button>
         </div>

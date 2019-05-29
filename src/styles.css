@@ -10,3 +10,7 @@ background: #fafafa;
 color:#333;
 justify-items: center
 }
+
+.content {
+    margin-top: 80px
+}
