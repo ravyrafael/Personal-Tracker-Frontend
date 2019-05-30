@@ -55,3 +55,28 @@
     min-width: 2.1rem;
     min-height: 2.1rem;
 }
+.object-list .icons:not(:hover){
+    color: #DDD;
+    opacity: 0.9;
+}
+.object-list .icons{
+    transition: 1s color cubic-bezier(0.075, 0.82, 0.165, 1),
+    1s opacity cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.object-list .icons.red:hover{
+    color: red;
+    opacity: 0.9;
+}
+.object-list .icons.blue:hover{
+    color: blue;
+    opacity: 0.9;
+}
+.object-list .card-columns {
+    column-count: 2;
+}
+.object-list .card{
+    transition: 1s box-shadow cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.object-list .card:hover {
+    box-shadow: 0px 0px 2px 1px #819c9c;
+}

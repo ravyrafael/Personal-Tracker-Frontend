@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import api from "../../services/api";
 import "./styles.css"
-import { Pagination } from "react-bootstrap"
+import { Pagination,CardColumns } from "react-bootstrap"
 import Object from "../models/objectDetail"
 
 export default class Main extends Component {
@@ -59,9 +59,11 @@ export default class Main extends Component {
         const { objects } = this.state
         return (
             <div className="object-list">
+                <CardColumns>
                 {objects.map(object => (
                     <Object key={object._id} object={object} delete={() => this.Delete(object)}></Object>
                 ))}
+                </CardColumns>
                 <div className="actions justify-content-center">
                     <div>
                         <Pagination size="sm">{this.state.items}</Pagination>
